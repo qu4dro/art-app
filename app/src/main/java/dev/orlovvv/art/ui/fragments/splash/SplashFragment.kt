@@ -28,11 +28,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.splashProgress.visibility = View.VISIBLE
         startPostDelayedNavigation()
     }
 
     private fun startPostDelayedNavigation() {
         Handler(Looper.getMainLooper()).postDelayed({
+            binding.splashProgress.visibility = View.GONE
             findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
         }, SPLASH_DELAY)
     }

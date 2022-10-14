@@ -6,38 +6,43 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:alpha="0.9"
-        android:src="@drawable/splash"
-        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/iv_photo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash"
+        app:layout_constraintDimensionRatio="3:4" />
+
+    <View
+        android:id="@+id/gradient"
+        app:layout_constraintStart_toStartOf="@id/iv_photo"
+        app:layout_constraintEnd_toEndOf="@id/iv_photo"
+        app:layout_constraintBottom_toBottomOf="@id/iv_photo"
+        android:background="@drawable/splash_image_gradient"
+        android:layout_width="0dp"
+        android:layout_height="128dp"/>
+
+    <ProgressBar
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:id="@+id/splash_progress"
+        android:layout_width="64dp"
+        android:layout_height="64dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:includeFontPadding="false"
         android:text="@string/kunst"
+        android:gravity="center"
         android:textAllCaps="true"
         android:textAppearance="@style/Text.Splash.Title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="kunst" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_subtitle"
-        android:layout_width="0dp"
-        android:textAppearance="@style/Text.Splash.Subtitle"
-        android:layout_height="wrap_content"
-        android:text="@string/photos_and_inspiration"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:background="@color/toxic_yellow"
-        app:layout_constraintEnd_toEndOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="photos and inspiration" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

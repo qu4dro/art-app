@@ -6,13 +6,13 @@
     <style name="Text.Splash"/>
 
     <style name="Text.Splash.Title">
-        <item name="fontFamily">@font/space_mono_bold</item>
+        <item name="fontFamily">@font/manrope_bold</item>
         <item name="android:textSize">96sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Text.Splash.Subtitle">
-        <item name="fontFamily">@font/montserrat_semi_bold</item>
+        <item name="fontFamily">@font/manrope_semi_bold</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
