@@ -2,11 +2,18 @@ package dev.orlovvv.art.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dev.orlovvv.art.R
+import dagger.hilt.android.AndroidEntryPoint
+import dev.orlovvv.art.databinding.ActivityArtBinding
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class ArtActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityArtBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityArtBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
+
 }
