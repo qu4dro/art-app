@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">art-app</string>
+    <string name="kunst">Kunst</string>
+    <string name="photos_and_inspiration">Photos and inspiration</string>
+    <string name="inspiration">Inspiration</string>
+    <string name="photos">Photos</string>
+    <string name="art">Art</string>
 </resources>
