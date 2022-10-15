@@ -1,6 +1,6 @@
 package dev.orlovvv.art.domain.model
 
-data class Post(
+data class Photo(
     val id: String,
     val description: String,
     val created_at: String,

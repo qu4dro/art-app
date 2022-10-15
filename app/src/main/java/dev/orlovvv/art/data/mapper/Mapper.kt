@@ -1,11 +1,11 @@
 package dev.orlovvv.art.data.mapper
 
 import dev.orlovvv.art.data.api.model.ListPhotoResponseItem
-import dev.orlovvv.art.domain.model.Post
+import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.domain.model.User
 
-fun ListPhotoResponseItem.mapToDomainPost(): Post {
-    return Post(
+fun ListPhotoResponseItem.mapToDomainPhoto(): Photo {
+    return Photo(
         id = id,
         description = description ?: alt_description ?: "",
         created_at = created_at,
