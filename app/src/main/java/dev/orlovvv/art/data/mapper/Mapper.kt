@@ -10,7 +10,7 @@ fun ListPhotoResponseItem.mapToDomainPhoto(): Photo {
         description = description ?: alt_description ?: "",
         created_at = created_at,
         color = color,
-        image_url = urls?.small ?: "",
+        image_url = urls?.regular ?: "",
         likes = likes ?: 0,
         user = User(
             id = user.id,
@@ -19,7 +19,7 @@ fun ListPhotoResponseItem.mapToDomainPhoto(): Photo {
             lastname = user.last_name ?: "",
             bio = user.bio ?: "",
             location = user.location ?: "",
-            image_url_small = user.profile_image?.small ?: "",
+            image_url_small = user.profile_image?.medium ?: "",
             image_url_big = user.profile_image?.large ?: ""
         )
     )
