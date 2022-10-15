@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.orlovvv.art">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ArtApplication"
         android:allowBackup="true"
