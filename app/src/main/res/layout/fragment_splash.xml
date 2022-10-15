@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/iv_photo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,23 +23,23 @@
         android:layout_width="0dp"
         android:layout_height="128dp"/>
 
-    <ProgressBar
-        app:layout_constraintBottom_toTopOf="@id/tv_title"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        app:layout_constraintBottom_toTopOf="@id/iv_photo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_photo"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         android:id="@+id/splash_progress"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textview.MaterialTextView
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/tv_title"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/splash_progress"
         android:includeFontPadding="false"
         android:text="@string/kunst"
-        android:textAllCaps="true"
-        android:gravity="center"
+        app:textAllCaps="true"
+        android:gravity="start"
         android:textAppearance="@style/Text.Splash.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
