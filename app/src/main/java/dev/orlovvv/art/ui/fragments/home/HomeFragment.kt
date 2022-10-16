@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.FragmentHomeBinding
+import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.ui.adapters.PhotosAdapter
 import dev.orlovvv.art.ui.viewmodels.PhotoViewModel
 import dev.orlovvv.art.utils.LoadState
@@ -27,7 +28,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val adapter = PhotosAdapter(
         object : PhotosAdapter.OnItemClickListener {
-            override fun onPhotoClick(photo: HomePhotoItemUiState) {
+            override fun onPhotoClick(photo: Photo?) {
                 findNavController().navigate(R.id.action_homeFragment_to_imageFragment)
             }
         }
@@ -53,29 +54,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    when (uiState.loadState) {
-                        LoadState.LOADING -> setLoadingUi()
-                        LoadState.ERROR -> setErrorUi()
-                        LoadState.SUCCESS -> {
-                            adapter.submitList(uiState.photos)
-                            setSuccessUi()
-                        }
-                    }
+                    adapter.submitData(uiState.photos)
                 }
             }
         }
-    }
-
-    private fun setSuccessUi() {
-
-    }
-
-    private fun setErrorUi() {
-
-    }
-
-    private fun setLoadingUi() {
-
     }
 
     private fun setupUi() {

@@ -1,10 +1,10 @@
 package dev.orlovvv.art.data.mapper
 
-import dev.orlovvv.art.data.api.model.ListPhotoResponseItem
+import dev.orlovvv.art.data.api.model.PhotoResponseDto
 import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.domain.model.User
 
-fun ListPhotoResponseItem.mapToDomainPhoto(): Photo {
+fun PhotoResponseDto.mapToDomainPhoto(): Photo {
     return Photo(
         id = id,
         description = description ?: alt_description ?: "",

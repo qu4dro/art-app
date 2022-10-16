@@ -1,25 +1,21 @@
 package dev.orlovvv.art.ui.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.CircleCropTransformation
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.*
-import dev.orlovvv.art.ui.fragments.home.HomePhotoItemUiState
+import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.utils.setBlackAndWhite
 
 class PhotosAdapter(private val clickListener: OnItemClickListener) :
-    ListAdapter<HomePhotoItemUiState, RecyclerView.ViewHolder>(PhotoDiffUtil) {
+    PagingDataAdapter<Photo, RecyclerView.ViewHolder>(PhotoDiffUtil) {
 
     interface OnItemClickListener {
-        fun onPhotoClick(photo: HomePhotoItemUiState)
+        fun onPhotoClick(photo: Photo?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -56,10 +52,9 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     inner class PhotoV1ViewHolder(
         private val binding: ItemPhotoV1Binding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: HomePhotoItemUiState) {
+        fun bind(photo: Photo?) {
             binding.apply {
-                ivPhoto.load(photo.image_url) {
-                    crossfade(true)
+                ivPhoto.load(photo?.image_url) {
                     placeholder(R.drawable.image_placeholder)
                     error(R.drawable.image_placeholder)
                 }
@@ -72,9 +67,9 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     inner class PhotoV2ViewHolder(
         private val binding: ItemPhotoV2Binding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: HomePhotoItemUiState) {
+        fun bind(photo: Photo?) {
             binding.apply {
-                ivPhoto.load(photo.image_url) {
+                ivPhoto.load(photo?.image_url) {
                     placeholder(R.drawable.image_placeholder)
                     error(R.drawable.image_placeholder)
                 }
@@ -84,17 +79,17 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
         }
     }
 
-    private object PhotoDiffUtil : DiffUtil.ItemCallback<HomePhotoItemUiState>() {
+    private object PhotoDiffUtil : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(
-            oldItem: HomePhotoItemUiState,
-            newItem: HomePhotoItemUiState
+            oldItem: Photo,
+            newItem: Photo
         ): Boolean {
             return oldItem.image_url == newItem.image_url
         }
 
         override fun areContentsTheSame(
-            oldItem: HomePhotoItemUiState,
-            newItem: HomePhotoItemUiState
+            oldItem: Photo,
+            newItem: Photo
         ): Boolean {
             return oldItem == newItem
         }

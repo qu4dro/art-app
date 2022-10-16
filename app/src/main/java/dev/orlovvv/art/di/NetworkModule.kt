@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.orlovvv.art.BuildConfig
+import dev.orlovvv.art.data.api.paging.PhotosPageSource
 import dev.orlovvv.art.data.api.service.PhotosService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,4 +57,8 @@ object NetworkModule {
     @Singleton
     fun providePhotoService(retrofit: Retrofit): PhotosService =
         retrofit.create(PhotosService::class.java)
+
+    @Provides
+    @Singleton
+    fun providePhotosPageSource(photosService: PhotosService) = PhotosPageSource(photosService)
 }

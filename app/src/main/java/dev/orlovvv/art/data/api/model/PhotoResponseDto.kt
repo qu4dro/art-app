@@ -2,7 +2,7 @@ package dev.orlovvv.art.data.api.model
 
 import com.squareup.moshi.Json
 
-data class ListPhotoResponseItem(
+data class PhotoResponseDto(
     @Json(name = "alt_description")
     val alt_description: String?,
     @Json(name = "blur_hash")
