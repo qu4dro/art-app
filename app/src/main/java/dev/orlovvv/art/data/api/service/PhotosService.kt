@@ -10,7 +10,8 @@ interface PhotosService {
     @GET("photos/")
     suspend fun fetchPhotos(
         @Query("client_id") api_key: String = BuildConfig.API_KEY,
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("per_page") per_page: Int = 100
     ): List<ListPhotoResponseItem>
 
 }

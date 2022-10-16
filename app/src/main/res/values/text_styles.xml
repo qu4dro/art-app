@@ -27,6 +27,16 @@
         <item name="lineHeight">60sp</item>
     </style>
 
+    <style name="Text.Semibold.28">
+        <item name="android:textSize">28sp</item>
+        <item name="lineHeight">30sp</item>
+    </style>
+
+    <style name="Text.Semibold.26">
+        <item name="android:textSize">26sp</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
     <style name="Text.Semibold.24">
         <item name="android:textSize">24sp</item>
         <item name="lineHeight">26sp</item>
@@ -39,7 +49,7 @@
 
     <style name="Text.Semibold.20">
         <item name="android:textSize">20sp</item>
-        <item name="lineHeight">21sp</item>
+        <item name="lineHeight">18sp</item>
     </style>
 
     <style name="Text.Semibold.18">

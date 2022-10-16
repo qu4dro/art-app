@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.FragmentHomeBinding
 import dev.orlovvv.art.ui.adapters.PhotosAdapter
@@ -26,8 +27,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val adapter = PhotosAdapter(
         object : PhotosAdapter.OnItemClickListener {
-            override fun onArticleClick(photo: HomePhotoItemUiState) {
-                //
+            override fun onPhotoClick(photo: HomePhotoItemUiState) {
+                findNavController().navigate(R.id.action_homeFragment_to_imageFragment)
             }
         }
     )

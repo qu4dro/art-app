@@ -1,52 +1,43 @@
 package dev.orlovvv.art.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import dev.orlovvv.art.R
-import dev.orlovvv.art.databinding.ItemPhotoV1Binding
-import dev.orlovvv.art.databinding.ItemPhotoV2Binding
-import dev.orlovvv.art.databinding.ItemPhotoV3Binding
+import dev.orlovvv.art.databinding.*
 import dev.orlovvv.art.ui.fragments.home.HomePhotoItemUiState
-import kotlin.random.Random
+import dev.orlovvv.art.utils.setBlackAndWhite
 
 class PhotosAdapter(private val clickListener: OnItemClickListener) :
     ListAdapter<HomePhotoItemUiState, RecyclerView.ViewHolder>(PhotoDiffUtil) {
 
     interface OnItemClickListener {
-        fun onArticleClick(photo: HomePhotoItemUiState)
+        fun onPhotoClick(photo: HomePhotoItemUiState)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewHolder1 = PhotoV1ViewHolder(
-            ItemPhotoV1Binding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-        val viewHolder2 = PhotoV2ViewHolder(
-            ItemPhotoV2Binding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-        val viewHolder3 = PhotoV3ViewHolder(
-            ItemPhotoV3Binding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
         return when (viewType) {
-            1 -> viewHolder1
-            2 -> viewHolder2
-            3 -> viewHolder3
-            else -> viewHolder1
+            2 -> PhotoV2ViewHolder(
+                ItemPhotoV2Binding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> PhotoV1ViewHolder(
+                ItemPhotoV1Binding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
     }
 
@@ -55,14 +46,11 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
         when (holder) {
             is PhotoV1ViewHolder -> holder.bind(photo)
             is PhotoV2ViewHolder -> holder.bind(photo)
-            is PhotoV3ViewHolder -> holder.bind(photo)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 5 == 0) 1
-        else if (position % 2 == 0) 2
-        else 3
+        return if (position % 2 == 0) 1 else if (position % 3 == 0) 1 else 2
     }
 
     inner class PhotoV1ViewHolder(
@@ -70,19 +58,14 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: HomePhotoItemUiState) {
             binding.apply {
-                tvUsername.text = photo.user.username
-                tvDescription.text = photo.description
-                tvLikes.text = photo.likes
                 ivPhoto.load(photo.image_url) {
+                    crossfade(true)
                     placeholder(R.drawable.image_placeholder)
                     error(R.drawable.image_placeholder)
                 }
-                ivProfilePic.load(photo.user.image_url_small) {
-                    placeholder(R.drawable.image_placeholder)
-                    error(R.drawable.image_placeholder)
-                }
+                ivPhoto.setBlackAndWhite()
             }
-            //binding.root.setOnClickListener { clickListener.onArticleClick(photo) }
+            binding.root.setOnClickListener { clickListener.onPhotoClick(photo) }
         }
     }
 
@@ -91,32 +74,13 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: HomePhotoItemUiState) {
             binding.apply {
-                tvDescription.text = photo.description
-                tvLikes.text = photo.likes
                 ivPhoto.load(photo.image_url) {
                     placeholder(R.drawable.image_placeholder)
                     error(R.drawable.image_placeholder)
                 }
+                ivPhoto.setBlackAndWhite()
             }
-            //binding.root.setOnClickListener { clickListener.onArticleClick(photo) }
-        }
-    }
-
-    inner class PhotoV3ViewHolder(
-        private val binding: ItemPhotoV3Binding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: HomePhotoItemUiState) {
-            binding.apply {
-                tvDescription.text = photo.description
-                tvLikes.text = photo.likes
-                ivPhoto.load(photo.image_url) {
-                    placeholder(R.drawable.image_placeholder)
-                    error(R.drawable.image_placeholder)
-                }
-                tvFirstname.text = photo.user.firstname
-                tvLastname.text = photo.user.lastname
-            }
-            //binding.root.setOnClickListener { clickListener.onArticleClick(photo) }
+            binding.root.setOnClickListener { clickListener.onPhotoClick(photo) }
         }
     }
 

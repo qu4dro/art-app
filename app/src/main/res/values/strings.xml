@@ -3,6 +3,7 @@
     <string name="kunst">kunst</string>
     <string name="inspiration">Inspiration</string>
     <string name="photos">Photos</string>
+    <style name="no_name">No name photo</style>
     <string name="art">Art</string>
     <string name="art_vertical">a\nr\nt\n \\</string>
 </resources>
