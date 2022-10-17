@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface PhotoRepository {
 
-    suspend fun fetchPhotos(): Flow<PagingData<Photo>>
+    fun fetchPhotos(): Flow<PagingData<Photo>>
 
 }

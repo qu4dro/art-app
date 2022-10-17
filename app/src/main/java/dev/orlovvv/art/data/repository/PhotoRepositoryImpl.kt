@@ -2,15 +2,14 @@ package dev.orlovvv.art.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import dev.orlovvv.art.data.api.paging.PhotosPageSource
+import androidx.paging.map
+import dev.orlovvv.art.data.api.paging.MAX_PAGE_SIZE
+import dev.orlovvv.art.data.api.paging.PhotosPagingSource
 import dev.orlovvv.art.data.api.service.PhotosService
 import dev.orlovvv.art.data.mapper.mapToDomainPhoto
-import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.domain.repository.PhotoRepository
-import dev.orlovvv.art.utils.Request
-import dev.orlovvv.art.utils.RequestUtils
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class PhotoRepositoryImpl @Inject constructor(private val photosService: PhotosService) :
@@ -23,14 +22,17 @@ class PhotoRepositoryImpl @Inject constructor(private val photosService: PhotosS
 //        }
 //    }
 
-    override suspend fun fetchPhotos() = Pager(
+    override fun fetchPhotos() = Pager(
         config = PagingConfig(
-            pageSize = 20,
-            maxSize = 100,
+            pageSize = MAX_PAGE_SIZE,
             enablePlaceholders = false,
         ),
-        pagingSourceFactory = { PhotosPageSource(photosService) }
-    ).flow
+        pagingSourceFactory = { PhotosPagingSource(photosService) }
+    ).flow.mapLatest {
+        it.map { photo ->
+            photo.mapToDomainPhoto()
+        }
+    }
 
 
 }

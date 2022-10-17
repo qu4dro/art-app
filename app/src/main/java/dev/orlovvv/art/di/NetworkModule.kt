@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.orlovvv.art.BuildConfig
-import dev.orlovvv.art.data.api.paging.PhotosPageSource
+import dev.orlovvv.art.data.api.paging.PhotosPagingSource
 import dev.orlovvv.art.data.api.service.PhotosService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -60,5 +60,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providePhotosPageSource(photosService: PhotosService) = PhotosPageSource(photosService)
+    fun providePhotosPageSource(photosService: PhotosService) = PhotosPagingSource(photosService)
 }
