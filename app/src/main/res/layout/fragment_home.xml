@@ -13,7 +13,7 @@
         android:clipToPadding="false"
         android:paddingBottom="64dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="2"
+        app:spanCount="3"
         tools:listitem="@layout/item_photo_v1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

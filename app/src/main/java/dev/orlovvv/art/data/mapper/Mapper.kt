@@ -10,7 +10,7 @@ fun PhotoResponseDto.mapToDomainPhoto(): Photo {
         description = description ?: alt_description ?: "",
         created_at = created_at,
         color = color,
-        image_url = urls?.regular ?: "",
+        image_url = urls?.small ?: "",
         likes = likes ?: 0,
         user = User(
             id = user.id,
