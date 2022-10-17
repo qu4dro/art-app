@@ -5,11 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.map
 import dev.orlovvv.art.data.api.paging.MAX_PAGE_SIZE
 import dev.orlovvv.art.data.api.paging.PhotosPagingSource
+import dev.orlovvv.art.data.api.paging.STARTING_PAGE_INDEX
 import dev.orlovvv.art.data.api.service.PhotosService
 import dev.orlovvv.art.data.mapper.mapToDomainPhoto
 import dev.orlovvv.art.domain.repository.PhotoRepository
 import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class PhotoRepositoryImpl @Inject constructor(private val photosService: PhotosService) :
@@ -27,6 +27,7 @@ class PhotoRepositoryImpl @Inject constructor(private val photosService: PhotosS
             pageSize = MAX_PAGE_SIZE,
             enablePlaceholders = false,
         ),
+        initialKey = STARTING_PAGE_INDEX,
         pagingSourceFactory = { PhotosPagingSource(photosService) }
     ).flow.mapLatest {
         it.map { photo ->

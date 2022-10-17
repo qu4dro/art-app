@@ -10,13 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.FragmentHomeBinding
 import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.ui.adapters.PhotosAdapter
 import dev.orlovvv.art.ui.viewmodels.PhotoViewModel
-import dev.orlovvv.art.utils.LoadState
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -63,6 +65,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setupUi() {
         binding.apply {
             rvPhotos.adapter = adapter
+            adapter.addLoadStateListener { loadState ->
+                val errorState = when {
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                when (val throwable = errorState?.error) {
+                    is IOException -> {}
+                    is HttpException -> {}
+                }
+            }
         }
     }
 
