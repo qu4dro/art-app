@@ -8,5 +8,21 @@ data class PhotoUi(
     val image_url_large: String,
     val likes: String,
     val user: UserUi,
-    val advertising: AdvertisingUi? = null
+    val advertising: AdvertisingUi? = null,
+    val full_text: String = buildString {
+        append(user.username)
+        append("\n")
+        if (description.isNotEmpty()) {
+            append(description)
+            append("\n")
+        } else if (advertising?.description?.isNotEmpty() == true) {
+            append(advertising.description)
+            append("\n")
+        }
+        append(created_at)
+        append("\n")
+        append(color)
+        append("\n")
+        append(user.name)
+    }
 )

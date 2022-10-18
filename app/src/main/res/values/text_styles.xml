@@ -29,7 +29,7 @@
 
     <style name="Text.Semibold.28">
         <item name="android:textSize">28sp</item>
-        <item name="lineHeight">30sp</item>
+        <item name="lineHeight">26sp</item>
     </style>
 
     <style name="Text.Semibold.26">
@@ -39,7 +39,7 @@
 
     <style name="Text.Semibold.24">
         <item name="android:textSize">24sp</item>
-        <item name="lineHeight">26sp</item>
+        <item name="lineHeight">22sp</item>
     </style>
 
     <style name="Text.Semibold.22">
