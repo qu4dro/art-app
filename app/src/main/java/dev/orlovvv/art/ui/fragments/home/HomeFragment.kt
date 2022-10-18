@@ -15,6 +15,7 @@ import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.FragmentHomeBinding
 import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.ui.adapters.PhotosAdapter
+import dev.orlovvv.art.ui.model.PhotoUi
 import dev.orlovvv.art.ui.viewmodels.PhotoViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -30,7 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val adapter = PhotosAdapter(
         object : PhotosAdapter.OnItemClickListener {
-            override fun onPhotoClick(photo: Photo?) {
+            override fun onPhotoClick(photo: PhotoUi?) {
                 findNavController().navigate(R.id.action_homeFragment_to_imageFragment)
             }
         }
@@ -65,18 +66,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setupUi() {
         binding.apply {
             rvPhotos.adapter = adapter
-            adapter.addLoadStateListener { loadState ->
-                val errorState = when {
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                when (val throwable = errorState?.error) {
-                    is IOException -> {}
-                    is HttpException -> {}
-                }
-            }
+//            adapter.addLoadStateListener { loadState ->
+//                val errorState = when {
+//                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+//                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+//                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+//                    else -> null
+//                }
+//                when (val throwable = errorState?.error) {
+//                    is IOException -> {}
+//                    is HttpException -> {}
+//                }
+//            }
         }
     }
 

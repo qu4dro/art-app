@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.orlovvv.art.domain.model.Photo
+import dev.orlovvv.art.domain.toUi
 import dev.orlovvv.art.domain.usecase.PhotoUseCases
 import dev.orlovvv.art.ui.fragments.home.HomeUiState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class PhotoViewModel @Inject constructor(private val photoUseCases: PhotoUseCase
         fetchJob = viewModelScope.launch {
             photoUseCases.fetchPhotosUseCase.invoke()
                 .cachedIn(viewModelScope).collect { photos ->
-                    _uiState.update { it.copy(photos = photos) }
+                    _uiState.update { it.copy(photos = photos.map { photo -> photo.toUi() }) }
                 }
         }
     }

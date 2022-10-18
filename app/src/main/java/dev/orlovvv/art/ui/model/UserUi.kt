@@ -1,6 +1,6 @@
-package dev.orlovvv.art.domain.model
+package dev.orlovvv.art.ui.model
 
-data class User(
+data class UserUi(
     val id: String,
     val username: String,
     val name: String,
@@ -8,6 +8,6 @@ data class User(
     val location: String,
     val image_url_small: String,
     val image_url_big: String,
-    val total_likes: Int,
-    val total_posts: Int
+    val total_likes: String,
+    val total_posts: String
 )

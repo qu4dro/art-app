@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.*
-import dev.orlovvv.art.domain.model.Photo
+import dev.orlovvv.art.ui.model.PhotoUi
 import dev.orlovvv.art.utils.setBlackAndWhite
 
 class PhotosAdapter(private val clickListener: OnItemClickListener) :
-    PagingDataAdapter<Photo, RecyclerView.ViewHolder>(PhotoDiffUtil) {
+    PagingDataAdapter<PhotoUi, RecyclerView.ViewHolder>(PhotoDiffUtil) {
 
     interface OnItemClickListener {
-        fun onPhotoClick(photo: Photo?)
+        fun onPhotoClick(photo: PhotoUi?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,15 +46,17 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 2 == 0) 1 else if (position % 3 == 0) 1 else 2
+        val photo = getItem(position)
+        if (photo?.advertising != null) return 2
+        return 1
     }
 
     inner class PhotoV1ViewHolder(
         private val binding: ItemPhotoV1Binding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo?) {
+        fun bind(photo: PhotoUi?) {
             binding.apply {
-                ivPhoto.load(photo?.image_url) {
+                ivPhoto.load(photo?.image_url_small) {
                     placeholder(R.drawable.image_placeholder)
                     error(R.drawable.image_placeholder)
                 }
@@ -67,29 +69,29 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
     inner class PhotoV2ViewHolder(
         private val binding: ItemPhotoV2Binding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo?) {
+        fun bind(photo: PhotoUi?) {
             binding.apply {
-                ivPhoto.load(photo?.image_url) {
-                    placeholder(R.drawable.image_placeholder)
-                    error(R.drawable.image_placeholder)
-                }
-                ivPhoto.setBlackAndWhite()
+//                ivPhoto.load(photo?.image_url) {
+//                    placeholder(R.drawable.image_placeholder)
+//                    error(R.drawable.image_placeholder)
+//                }
+//                ivPhoto.setBlackAndWhite()
             }
             binding.root.setOnClickListener { clickListener.onPhotoClick(photo) }
         }
     }
 
-    private object PhotoDiffUtil : DiffUtil.ItemCallback<Photo>() {
+    private object PhotoDiffUtil : DiffUtil.ItemCallback<PhotoUi>() {
         override fun areItemsTheSame(
-            oldItem: Photo,
-            newItem: Photo
+            oldItem: PhotoUi,
+            newItem: PhotoUi
         ): Boolean {
-            return oldItem.image_url == newItem.image_url
+            return oldItem.image_url_small == newItem.image_url_small
         }
 
         override fun areContentsTheSame(
-            oldItem: Photo,
-            newItem: Photo
+            oldItem: PhotoUi,
+            newItem: PhotoUi
         ): Boolean {
             return oldItem == newItem
         }

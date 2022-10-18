@@ -7,7 +7,7 @@ import dev.orlovvv.art.data.api.paging.MAX_PAGE_SIZE
 import dev.orlovvv.art.data.api.paging.PhotosPagingSource
 import dev.orlovvv.art.data.api.paging.STARTING_PAGE_INDEX
 import dev.orlovvv.art.data.api.service.PhotosService
-import dev.orlovvv.art.data.mapper.mapToDomainPhoto
+import dev.orlovvv.art.data.toDomain
 import dev.orlovvv.art.domain.repository.PhotoRepository
 import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
@@ -31,7 +31,7 @@ class PhotoRepositoryImpl @Inject constructor(private val photosService: PhotosS
         pagingSourceFactory = { PhotosPagingSource(photosService) }
     ).flow.mapLatest {
         it.map { photo ->
-            photo.mapToDomainPhoto()
+            photo.toDomain()
         }
     }
 
