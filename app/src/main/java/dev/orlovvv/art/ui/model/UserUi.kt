@@ -1,5 +1,9 @@
 package dev.orlovvv.art.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class UserUi(
     val id: String,
     val username: String,
@@ -10,4 +14,4 @@ data class UserUi(
     val image_url_big: String,
     val total_likes: String,
     val total_posts: String
-)
+): Parcelable

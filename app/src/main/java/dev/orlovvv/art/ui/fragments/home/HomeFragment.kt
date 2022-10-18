@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
+import com.google.android.material.transition.MaterialSharedAxis
 import dev.orlovvv.art.R
 import dev.orlovvv.art.databinding.FragmentHomeBinding
-import dev.orlovvv.art.domain.model.Photo
 import dev.orlovvv.art.ui.adapters.PhotosAdapter
 import dev.orlovvv.art.ui.model.PhotoUi
-import dev.orlovvv.art.ui.viewmodels.PhotoViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -27,12 +24,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding
         get() = _binding!!
 
-    private val viewModel: PhotoViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     private val adapter = PhotosAdapter(
         object : PhotosAdapter.OnItemClickListener {
             override fun onPhotoClick(photo: PhotoUi?) {
-                findNavController().navigate(R.id.action_homeFragment_to_imageFragment)
+                photo?.let {
+                    val action = HomeFragmentDirections.actionHomeFragmentToImageFragment(it)
+                    findNavController().navigate(action)
+                }
+
             }
         }
     )
@@ -49,11 +50,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
         setupUi()
-        setupObservers()
-    }
-
-    private fun setupObservers() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
@@ -61,6 +59,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
+        (view.parent as? ViewGroup)?.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z,true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z,false)
     }
 
     private fun setupUi() {

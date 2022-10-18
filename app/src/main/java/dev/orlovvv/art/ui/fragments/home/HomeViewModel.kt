@@ -1,4 +1,4 @@
-package dev.orlovvv.art.ui.viewmodels
+package dev.orlovvv.art.ui.fragments.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PhotoViewModel @Inject constructor(private val photoUseCases: PhotoUseCases) : ViewModel() {
+class HomeViewModel @Inject constructor(private val photoUseCases: PhotoUseCases) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState(photos = PagingData.empty()))
     val uiState

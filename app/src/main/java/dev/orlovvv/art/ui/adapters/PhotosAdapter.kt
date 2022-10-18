@@ -2,6 +2,7 @@ package dev.orlovvv.art.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -71,6 +72,7 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
                     }
                     ivPhoto.setBlackAndWhite()
                     tvFullText.text = photo.full_text
+                    ViewCompat.setTransitionName(binding.ivPhoto, photo.image_url_small)
                     clRoot.setOnClickListener { clickListener.onPhotoClick(photo) }
                 }
             }
@@ -89,7 +91,9 @@ class PhotosAdapter(private val clickListener: OnItemClickListener) :
                     }
                     ivPhoto.setBlackAndWhite()
                     tvFullText.text = photo.full_text
-                    clRoot.setOnClickListener { clickListener.onPhotoClick(photo) }
+                    clRoot.setOnClickListener {
+                        clickListener.onPhotoClick(photo)
+                    }
                 }
             }
         }

@@ -1,5 +1,9 @@
 package dev.orlovvv.art.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class PhotoUi(
     val description: String,
     val created_at: String,
@@ -25,4 +29,4 @@ data class PhotoUi(
         append("\n")
         append(user.name)
     }
-)
+) : Parcelable
