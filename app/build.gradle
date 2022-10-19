@@ -24,7 +24,7 @@ android {
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
         buildConfigField "String", "API_KEY", "\"${properties.getProperty("API_KEY")}\""
-        buildConfigField 'String', 'BASE_URL', '\"https://api.unsplash.com/\"'
+        buildConfigField 'String', 'BASE_URL', '\"https://api.openweathermap.org/\"'
     }
 
     buildTypes {
